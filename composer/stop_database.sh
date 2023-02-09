@@ -1,4 +1,3 @@
-#! /bin/bash
-
-sudo systemctl mysql stop
-sudo systemctl mysql status
+#!/bin/bash
+sudo systemctl stop mysql
+sudo systemctl status mysql
