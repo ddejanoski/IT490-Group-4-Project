@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Copying files to Apache..."
-cp -R /home/nicole/Documents/IT490/website /var/www/html/professor-in-space
+cp -R /home/nicole/Documents/IT490/website/. /var/www/html/
 echo "Files copied, restarting Apache..."
 
 sudo systemctl restart apache2
