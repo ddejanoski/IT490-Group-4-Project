@@ -1,0 +1,14 @@
+{
+    "name": "vendor/composer",
+    "description": "composer library using",
+    "minimum-stability": "dev",
+    "require": {
+        "php-amqplib/php-amqplib": "^2.0",
+        "phpseclib/phpseclib": "~3.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp": true
+        }
+    }
+}
