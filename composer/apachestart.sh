@@ -8,7 +8,7 @@ if [ $isUp = "active" ] ; then
 	echo $apacheVersion
 else
 	echo "Apache is not running, starting now..."
-	systemctl start apache2
+	sudo systemctl start apache2
 	echo "Apache status: "
 	isUp=$(sudo systemctl is-active apache2.service)
 	echo $isUp
