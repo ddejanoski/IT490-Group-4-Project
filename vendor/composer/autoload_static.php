@@ -6,39 +6,17 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitb82ffb750a20408333d5e6c834cfb542
 {
-    public static $files = array (
-        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
-        'p' => 
-        array (
-            'phpseclib3\\' => 11,
-        ),
         'P' => 
         array (
-            'ParagonIE\\ConstantTime\\' => 23,
+            'PhpAmqpLib\\' => 11,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'phpseclib3\\' => 
+        'PhpAmqpLib\\' => 
         array (
-            0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
-        ),
-        'ParagonIE\\ConstantTime\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'P' => 
-        array (
-            'PhpAmqpLib' => 
-            array (
-                0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib',
-            ),
+            0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib/PhpAmqpLib',
         ),
     );
 
@@ -51,7 +29,6 @@ class ComposerStaticInitb82ffb750a20408333d5e6c834cfb542
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitb82ffb750a20408333d5e6c834cfb542::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitb82ffb750a20408333d5e6c834cfb542::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitb82ffb750a20408333d5e6c834cfb542::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitb82ffb750a20408333d5e6c834cfb542::$classMap;
 
         }, null, ClassLoader::class);

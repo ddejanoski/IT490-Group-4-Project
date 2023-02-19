@@ -9,11 +9,5 @@
 
 		<p> To Be Continued... </p>
 
-		<?php
-			echo "<p> Hello World! </p>";
-		?>
-
-		<p> helllooooo </p>
-
 	</body>
 </html>
