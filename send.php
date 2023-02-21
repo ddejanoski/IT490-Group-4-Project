@@ -9,7 +9,7 @@ $channel = $connection->channel();
 
 $channel->queue_declare('hello', false, false, false, false);
 
-$msg = new AMQPMessage('Hello World');
+$msg = new AMQPMessage('hello world');
 $channel->basic_publish($msg, '', 'hello');
 
 echo " Sent 'Hello World!'\n";
