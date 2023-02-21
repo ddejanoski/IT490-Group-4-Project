@@ -7,4 +7,7 @@ if [ $isUp != "active" ] ; then
 else
 	echo "Shutting down Apache..."
 	sudo service apache2 stop
+	isUp=$(sudo systemctl is-active apache2.service)
+	echo "Apache status: "
+	echo $isUp;
 fi
