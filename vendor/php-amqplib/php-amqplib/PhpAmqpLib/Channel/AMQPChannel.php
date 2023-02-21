@@ -51,6 +51,10 @@ class AMQPChannel extends AbstractChannel
         //TODO:???if($this->connection)
         //    $this->close("destroying channel");
     }
+    public function is_open()
+    {
+        return $this->is_open;
+    }
 
     /**
      * Tear down this object, after we've agreed to close with the server.
