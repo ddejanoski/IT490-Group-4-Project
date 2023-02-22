@@ -9,10 +9,10 @@ $channel = $connection->channel();
 
 $channel->queue_declare('hello', false, false, false, false);
 
-$msg = new AMQPMessage('hello world');
+$msg = new AMQPMessage('Hello World from Brian!');
 $channel->basic_publish($msg, '', 'hello');
 
-echo " Sent 'Hello World!'\n";
+echo " Sent 'Hello World from Brian!'\n";
 
 $channel->close();
 $connection->close();
