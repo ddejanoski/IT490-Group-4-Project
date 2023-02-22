@@ -54,8 +54,6 @@ else
     fi
 fi
 
-#!/bin/bash
-
 # Set the server you want to connect to
 SERVER="mohit@172.25.214.177"
 
