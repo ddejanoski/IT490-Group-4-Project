@@ -7,7 +7,7 @@ SERVER="nicole@172.25.68.221"
 SERVICE="apache2"
 
 # Check if the service is running on the remote server
-ssh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
+rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
 if [ $? -eq 0 ]; then
     echo "Service is running"
@@ -15,10 +15,10 @@ else
     echo "Service is not running"
 
     # Start the service on the remote server
-    ssh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
+    rsh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
 
     # Check if the service started successfully
-    ssh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
+    rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
     if [ $? -eq 0 ]; then
         echo "Service started successfully"
