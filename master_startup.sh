@@ -10,9 +10,9 @@ SERVICE="php8.1-fpm"
 rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
 if [ $? -eq 0 ]; then
-    echo "Service is running"
+    echo $SERVICE" is running"
 else
-    echo "Service is not running"
+    echo $SERVICE" is not running"
 
     # Start the service on the remote server
     rsh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
@@ -37,9 +37,9 @@ SERVICE="apache2"
 rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
 if [ $? -eq 0 ]; then
-    echo "Service is running"
+    echo $SERVICE" is running"
 else
-    echo "Service is not running"
+    echo $SERVICE" is not running"
 
     # Start the service on the remote server
     rsh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
@@ -64,9 +64,9 @@ SERVICE="rabbitmq-server"
 rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
 if [ $? -eq 0 ]; then
-    echo "Service is running"
+    echo $SERVICE" is running"
 else
-    echo "Service is not running"
+    echo $SERVICE" is not running"
 
     # Start the service on the remote server
     rsh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
