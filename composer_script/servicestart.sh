@@ -10,9 +10,9 @@ SERVICE="mysql"
 rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
 if [ $? -eq 0 ]; then
-    echo "Service is running"
+    echo $SERVICE "is running"
 else
-    echo "Service is not running"
+    echo $SERVICE "is not running"
 
     # Start the service on the remote server
     rsh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
@@ -21,9 +21,9 @@ else
     rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
     if [ $? -eq 0 ]; then
-        echo "Service started successfully"
+        echo $SERVICE " started successfully"
     else
-        echo "Failed to start service"
+        echo $SERVICE " failed to start service"
     fi
 fi
 
@@ -37,9 +37,9 @@ SERVICE="apache2"
 rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
 if [ $? -eq 0 ]; then
-    echo "Service is running"
+    echo $SERVICE" is running"
 else
-    echo "Service is not running"
+    echo $SERVICE" is not running"
 
     # Start the service on the remote server
     rsh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
@@ -48,9 +48,9 @@ else
     rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
     if [ $? -eq 0 ]; then
-        echo "Service started successfully"
+        echo $SERVICE" started successfully"
     else
-        echo "Failed to start service"
+        echo $SERVICE" failed to start service"
     fi
 fi
 
@@ -66,9 +66,9 @@ SERVICE="rabbitmq-server"
 rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
 if [ $? -eq 0 ]; then
-    echo "Service is running"
+    echo $SERVICE" is running"
 else
-    echo "Service is not running"
+    echo $SERVICE" is not running"
 
     # Start the service on the remote server
     rsh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
@@ -77,9 +77,9 @@ else
     rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
     if [ $? -eq 0 ]; then
-        echo "Service started successfully"
+        echo $SERVICE" started successfully"
     else
-        echo "Failed to start service"
+        echo $SERVICE" Failed to start service"
     fi
 fi
 
