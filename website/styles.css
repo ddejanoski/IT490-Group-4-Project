@@ -2,19 +2,168 @@
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('pictures/prois-background.png');
+    font-family: sans-serif;
+    color: #fff;
+}
+
+.registerform {
+    width: 320px;
+    height: 550px;
+    background: #fff;
+    color: #000;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+}
+
+.loginform {
+    width: 320px;
+    height: 420px;
+    background: #fff;
+    color: #000;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+}
+
+h1 {
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+    color: #fff;
+}
+
+h2 {
+    margin: 0;
+    padding: 0 0 20px;
+    color: black;
+    text-align: center;
+}
+
+.registerform p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.loginform p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.registerform input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.loginform input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.registerform input[type="text"], input[type="password"], input[type="email"]{
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #000;
+    font-size: 16px;
+}
+
+.loginform input[type="text"], input[type="password"], input[type="email"]{
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #000;
+    font-size: 16px;
+}
+
+.registerform input[type="submit"] {
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #670e94;
+    color: #000;
+    font-size: 18px;
+}
+
+.loginform input[type="submit"] {
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #670e94;
+    color: #000;
+    font-size: 18px;
+}
+
+.registerform input[type="submit"]:hover {
+    cursor: pointer;
+    background: #ca67f7;
+    color: #fff;
+}
+
+.loginform input[type="submit"]:hover {
+    cursor: pointer;
+    background: #ca67f7;
+    color: #fff;
+}
+
+.registerform a {
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: #1d22ae;
+}
+
+.loginform a {
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: #1d22ae;
+}
+
+.registerform a:hover {
+    color: #ca67f7;
+}
+
+.loginform a:hover {
+    color: #ca67f7;
+}
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: rgba(0,0,0,0.6);
-    margin: 0;
-    padding: 0;
 }
 
 .brand-title {
     font-size: 1.5rem;
     margin: 0.5rem;
+    color: #fff;
 }
 
 .navbar-links ul {
