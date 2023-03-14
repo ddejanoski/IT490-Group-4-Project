@@ -1,5 +1,6 @@
 <?php 
 include('/home/nicole/Documents/IT490/RabbitMQClient.php'); 
+reset_session();
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +32,39 @@ include('/home/nicole/Documents/IT490/RabbitMQClient.php');
 
 <script>
     function validate(form) {
-        //insert validation here
         var isValid = true;
+        var e_valid = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        var u_valid = /^[a-z0-9_-]{3,30}$/;
+
+        if(document.register.email.value == ""){
+            alert("Email must not be empty");
+            isValid = false;
+        }
+        if(!e_valid.test(document.register.email.value)){
+            alert("Invalid email entered");
+            isValid = false;
+        }
+        if(document.register.username.value == ""){
+            alert("Username must not be empty");
+            isValid = false;
+        }
+        if(!u_valid.test(document.register.username.value)){
+            alert("Username must be lowercase, alphanumerical, and can only contain _ or -");
+            isValid = false;
+        }
+        if(document.register.pw.length < 8){
+            alert("Password must be at least 8 characters");
+            isValid = false;
+        }
+        if(document.register.pw.value !== document.register.confirm.value){
+            alert("Password confirmation must be at least 8 characters");
+            isValid = false;
+        }
+        if(document.register.pw.value !== document.register.confirm.value){
+            alert("Password and Confirm Password must match");
+            isValid = false;
+        }
+
         return isValid;
     }
 </script>

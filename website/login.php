@@ -27,8 +27,17 @@ include('/home/nicole/Documents/IT490/RabbitMQClient.php');
 
 <script>
     function validate(form) {
-        //insert validation here
         var isValid = true;
+
+        if(document.login.email.value == ""){
+            alert("Email or username must not be empty");
+            isValid = false;
+        }
+        if(document.login.pw.length < 8 ){
+            alert("Password must be at least 8 characters");
+            isValid = false;
+        }
+
         return isValid;
     }
 </script>
