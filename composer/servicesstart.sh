@@ -26,9 +26,9 @@ SERVICE="mysql"
 rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
 if [ $? -eq 0 ]; then
-    echo "Service is running"
+    echo "mysql Service is running"
 else
-    echo "Service is not running"
+    echo "mysql Service is not running"
 
     # Start the service on the remote server
     rsh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
@@ -37,9 +37,9 @@ else
     rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
     if [ $? -eq 0 ]; then
-        echo "Service started successfully"
+        echo "mysql Service started successfully"
     else
-        echo "Failed to start service"
+        echo "Failed to start mysql service"
     fi
 fi
 
@@ -53,9 +53,9 @@ SERVICE="rabbitmq-server"
 rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
 if [ $? -eq 0 ]; then
-    echo "Service is running"
+    echo "rabbitmq Service is running"
 else
-    echo "Service is not running"
+    echo "rabbitmq Service is not running"
 
     # Start the service on the remote server
     rsh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
@@ -64,9 +64,9 @@ else
     rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
     if [ $? -eq 0 ]; then
-        echo "Service started successfully"
+        echo "rabbitmq Service started successfully"
     else
-        echo "Failed to start service"
+        echo "Failed to start rabbitmq service"
     fi
 fi
 
@@ -80,9 +80,9 @@ SERVICE="php8.1-fpm"
 rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
 if [ $? -eq 0 ]; then
-    echo "Service is running"
+    echo "php Service is running"
 else
-    echo "Service is not running"
+    echo "php Service is not running"
 
     # Start the service on the remote server
     rsh -t -t -o "BatchMode yes" $SERVER "sudo systemctl start $SERVICE.service"
@@ -91,8 +91,8 @@ else
     rsh -q -o "BatchMode yes" $SERVER "systemctl is-active $SERVICE.service"
 
     if [ $? -eq 0 ]; then
-        echo "Service started successfully"
+        echo "php Service started successfully"
     else
-        echo "Failed to start service"
+        echo "Failed to start php service"
     fi
 fi

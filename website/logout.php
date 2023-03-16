@@ -1,6 +1,7 @@
 <?php
 session_start();
-reset_session();
+session_unset();
+session_destroy();
 echo '<script>alert("Successfully logged out")</script>';
-header("Location: login.php");
+header("Location: index.php");
 ?>

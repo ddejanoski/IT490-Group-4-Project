@@ -1,31 +1,31 @@
 <?php 
 include('/home/nicole/Documents/IT490/RabbitMQClient.php'); 
-reset_session();
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
         <title> Register </title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="styles.css"></link>
     </head>
 
     <body>
         <div class="registerform">
         <img src="pictures/prois-logo.png" class="avatar">
             <h2>Register!</h2>
-            <form onsubmit="return validate(this)" method="POST">
+            <form onsubmit="return validate(this)" id="register" method="GET" name="register" action="/register.php">
                 <p>Email</p>
-                <input type="email" name="email" placeholder="email@example.com" required>
+                <input type="email" name="email" value ="email@email.com" id="email" placeholder="email@example.com" required />
                 <p>Create Username</p>
-                <input type="text" name="username" placeholder="Enter Username" required maxlength="30">
+                <input type="text" name="username" value="username" id="username" placeholder="Enter Username" required maxlength="30" />
                 <p>Create Password</p>
-                <input type="password" name="pw" placeholder="Enter Password" required minlength="8">
+                <input type="password" name="password" value="password" id="password" placeholder="Enter Password" required minlength="8" />
                 <p>Confirm Password</p>
-                <input type="password" name="confirm" placeholder="Confirm password" required minlength="8">
-                <input type="submit" name="submitregister" value="Register">
-                <a href="login.php">Already have an account? Login! </a>
+                <input type="password" name="confirm" placeholder="Confirm password" required minlength="8" />
+                <input type="submit" name="register" value="register" id="register" />
+                <a href="login.php"> Already have an account? Login! </a>
             </form>
+        </div>
     </body>
 
 </html>
@@ -52,15 +52,15 @@ reset_session();
             alert("Username must be lowercase, alphanumerical, and can only contain _ or -");
             isValid = false;
         }
-        if(document.register.pw.length < 8){
+        if(document.register.password.length < 8){
             alert("Password must be at least 8 characters");
             isValid = false;
         }
-        if(document.register.pw.value !== document.register.confirm.value){
+        if(document.register.password.value !== document.register.confirm.value){
             alert("Password confirmation must be at least 8 characters");
             isValid = false;
         }
-        if(document.register.pw.value !== document.register.confirm.value){
+        if(document.register.password.value !== document.register.confirm.value){
             alert("Password and Confirm Password must match");
             isValid = false;
         }

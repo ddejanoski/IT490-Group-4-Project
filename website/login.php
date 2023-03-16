@@ -1,5 +1,6 @@
 <?php 
 include('/home/nicole/Documents/IT490/RabbitMQClient.php'); 
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ include('/home/nicole/Documents/IT490/RabbitMQClient.php');
         <div class="loginform">
         <img src="pictures/prois-logo.png" class="avatar">
             <h2>Login!</h2>
-            <form onsubmit="return validate(this)" method="POST">
+            <form onsubmit="return validate(this)" method="POST" name="login">
                 <p>Email</p>
                 <input type="email" name="email" placeholder="email@example.com" required>
                 <p>Password</p>
