@@ -3,16 +3,13 @@
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
+require_once('db_connect.php');
 
 function requestProcessor($request)
 {
 
-    echo "received request".PHP_EOL;
-    $hostname = '172.25.153.116';
-    $username = 'test';
-    $password = 'test';
-    $database = 'test';
-    $conn = mysqli_connect($hostname, $username, $password, $database);
+    echo "REQUEST RECEIVED, WAITING: ".PHP_EOL;
+    $conn = connect_to_db();
     $email = $request['email'];
     $username = $request['username'];
     $password = $request['password'];
@@ -20,30 +17,30 @@ function requestProcessor($request)
 
     if (mysqli_connect_errno())
     {
-        return "Failed to connect to MySQL: " . mysqli_connect_error();
+        return "You've failed to connect to MySQL: " . mysqli_connect_error();
     }
     else
     {
-        echo "Connection successful!";
+        echo $username . " has successfully connected to " . $database;
+        echo 'Attempting insert.';
         $query = "INSERT INTO Accounts (email, username, password) VALUES ('$email', '$username', '$password')";
         $init_user = mysqli_query($conn, $query);
         if ($init_user)
         {
-            echo "created\n";
-            return 'created';
+            return 'Successfully inserted info.';
         }
         else
         {
-            echo mysqli_error($conn) . "\n not created\n";
-            return 'notCreated';
+            echo mysqli_error($conn) . "\n Please try again.\n";
+            return 'Data not inserted.';
         }
     }
-    echo "nothing from database";
-    return 'notCreated';
+    echo $username ." you've not received a response from " . $database . " database.";
+    return 'Please try again.';
 }
 
 $server = new rabbitMQServer("registerDatabase.ini","testServer");
-echo "Server started" . PHP_EOL;
+echo "STARTED SERVER, WAITING: " . PHP_EOL;
 $server->process_requests('requestProcessor');
 exit();
 ?>
