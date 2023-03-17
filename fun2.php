@@ -3,39 +3,54 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 require_once('dbconnect.php');
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
 
 function doRegister($email, $username, $password)
 {
-  $con = dbconnect();
+  
+echo "$email, $username, $password, 1st ";
+global $con;
+$host_name = '172.25.153.116';
+$user_name = 'brian';
+$password = 'DBpasswordBACKEND123';
+$database_name = 'test';
+$message_connected = $user_name . ' has successfully connected to ' . $database_name;
+$message_failed = $user_name . "'s connection to " . $database_name . ' has failed.';
+
+$con = mysqli_connect($host_name, $user_name, $password, $database_name);
+echo "$email, $username, $password, 2nd";
+if (mysqli_connect_errno()) {
+	die($message_failed);
+}
+else {
+	echo $message_connected;
+}
 /*
   $query = "SELECT * FROM Accounts WHERE email = :email OR username = :username";
   $stmt = $con->prepare($query);
 */
-echo "$email, $username, $password, 1st\n";
+echo "$email, $username, $password, 3rd";
   $query = "SELECT * FROM Accounts WHERE username='$username'";
   $result = $con->query($query);
   if ($result->num_rows == 1) {
     // username or email already taken, return error message
     echo 'Username or email already taken';
   } else {
-    echo "$email, $username, $password, 2nd\n";
-    // insert the new user into the database
-    // hash the password for security
-    $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);// hash the password for security
-    $content = array(
-        "username" => $_POST['username'],
-        "email" => $_POST['email'],
-        "pass" => $hashed_password,
-        "type" => $_POST['register']
-    );
-}
-    $msgJson = json_encode($content);
-    echo "$email, $username, $password, 3rd\n";
-  }
+    echo "$email, $username, $password, 4th";
+    $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
 
+    // insert the new user into the database
+    //$hashed_password = password_hash($password, PASSWORD_DEFAULT); // hash the password for security
+    $sql = "INSERT INTO Accounts (email, username, password) VALUES ('$email', '$username', '$password')";
+    echo "$email, $username, $password, 5th";
+  }
+  if ($con->query($sql)) {
+    echo "$email, $username, $password, 6th";
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $con->error;
+  }
   
+}
 
 /*function doLogin($username, $password)
 
@@ -71,20 +86,3 @@ echo "$email, $username, $password, 1st\n";
     return array('status' => 'error', 'message' => 'Invalid username or password');
   }
 }*/
-$con = new AMQPStreamConnection('172.25.214.177', 5672, 'admin', 'admin');
-$channel = $con->channel();
-//declaring queue named hello
-$channel->queue_declare('email', false, false, false, false);
-
-$msg = new AMQPMessage($msgJson, array('delivery_mode' => 2 ));
-//publishing message from the register form to rabbitmq
-$channel->basic_publish($msg, '', 'email');
-
-echo "Sent to RabbitMQ: ";
-
-header("location: login.html?msg=User ".  $_POST['username'] . " is registered");
-
-
-
-$channel->close();
-$connection->close();
