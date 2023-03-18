@@ -1,8 +1,9 @@
-#!/usr/bin/php
 <?php
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
+require_once('dbconnect.php');
+require_once('function.php');
 
 function validate($request)
 {
@@ -30,23 +31,7 @@ function validate($request)
         echo "Password must be at least 8 characters";
         $isValid = false;
     }
-    echo 'fail';
     return "isValid";
-}
-
-
-
-
-function queryDatabase($request)
-{
-echo "check for hitting db function\n";
-$client = new rabbitMQClient("RabbitMQ_db.ini", "testServer");
-echo "initializing RMQ client\n";
-$validate = $request;
-echo "sending retrieved message to db server unbothered\n";
-$response = $client->send_request($validate);
-echo "sending response back to client...\n" . var_dump($response);
-return $response;
 }
 
 
@@ -58,10 +43,26 @@ function requestProcessor($request)
         return "ERROR: No username provided";
     }
     switch ($request['type']) {
-        case "registration":
+        case "register":
             $validationResult = validate($request);
             if ($validationResult == true) {
+                //hashing
+                $password_to_hash = $request['password'];
+                $hashed_password = password_hash($password_to_hash, PASSWORD_BCRYPT);
+
+                $update_request = array();
+                $update_request['email'] = $request["email"];
+                $update_request['username'] = $request["username"];
+                $update_request['password'] = $hashed_password;
+
                 // Code to insert registration information into database would go here
+                echo "check for hitting db function\n";
+                $client = new rabbitMQClient("RabbitMQ_db.ini", "testServer");
+                echo "initializing RMQ client\n";
+                echo "sending retrieved message to db server unbothered\n";
+                $response = $client->send_request($update_request);
+                echo "sending response back to client...\n" . var_dump($response);
+                return $response;
                 echo "Registration successful";
             } else {
                 header('location: register.php');

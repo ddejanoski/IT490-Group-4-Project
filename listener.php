@@ -28,6 +28,17 @@ function requestProcessor($request)
     $response_msg = "something else";
   }
   return $response_msg;
+
+  if ($request['type'] == "login") {
+    echo "\n*Type: Login\n";
+    $response_msg = doLogin($request['email'], $request['username'], $request['password']);
+  } else {
+    $response_msg = "something else";
+  }
+  return $response_msg;
+
+
+
 }
 
 $server = new rabbitMQServer("RabbitMQ_db.ini", "testServer");
