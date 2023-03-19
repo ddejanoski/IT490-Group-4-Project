@@ -1,6 +1,5 @@
 <?php 
 include('/home/nicole/Documents/IT490/RabbitMQClient.php'); 
-session_start();
 ?>
 
 <!DOCTYPE html>
@@ -14,14 +13,15 @@ session_start();
         <div class="loginform">
         <img src="pictures/prois-logo.png" class="avatar">
             <h2>Login!</h2>
-            <form onsubmit="return validate(this)" method="POST" name="login">
+            <form onsubmit="return validate(this)" id="login" method="GET" name="login" action="/login.php">
                 <p>Email</p>
-                <input type="email" name="email" placeholder="email@example.com" required>
+                <input type="email" name="email" id="email" placeholder="email@example.com" required />
                 <p>Password</p>
-                <input type="password" name="pw" placeholder="Enter Password" required minlength="8">
-                <input type="submit" name="submitlogin" value="login">
-                <a href="register.php">Don't have an account? Register! </a>
+                <input type="password" name="password" id="password" placeholder="Enter Password" required minlength="8" />
+                <input type="submit" name="login" value="login" id="login" />
+                <a href="login.php"> Don't have an account? Register! </a>
             </form>
+        </div>
     </body>
 
 </html>
@@ -34,7 +34,7 @@ session_start();
             alert("Email or username must not be empty");
             isValid = false;
         }
-        if(document.login.pw.length < 8 ){
+        if(document.login.password.length < 8 ){
             alert("Password must be at least 8 characters");
             isValid = false;
         }

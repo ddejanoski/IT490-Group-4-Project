@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include '/home/nicole/Documents/IT490/RabbitMQClient.php';
 ?>
 

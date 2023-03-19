@@ -15,13 +15,13 @@ include('/home/nicole/Documents/IT490/RabbitMQClient.php');
             <h2>Register!</h2>
             <form onsubmit="return validate(this)" id="register" method="GET" name="register" action="/register.php">
                 <p>Email</p>
-                <input type="email" name="email" value ="email@email.com" id="email" placeholder="email@example.com" required />
+                <input type="email" name="email" value ="damjan@email.com" id="email" placeholder="email@example.com" required />
                 <p>Create Username</p>
-                <input type="text" name="username" value="username" id="username" placeholder="Enter Username" required maxlength="30" />
+                <input type="text" name="username" value="damjanswindmill" id="username" placeholder="Enter Username" required maxlength="30" />
                 <p>Create Password</p>
-                <input type="password" name="password" value="password" id="password" placeholder="Enter Password" required minlength="8" />
+                <input type="password" name="password" value="password" id="password" placeholder="Enter Password"  />
                 <p>Confirm Password</p>
-                <input type="password" name="confirm" placeholder="Confirm password" required minlength="8" />
+                <input type="password" name="confirm" placeholder="Confirm password" value="password" required minlength="8"/>
                 <input type="submit" name="register" value="register" id="register" />
                 <a href="login.php"> Already have an account? Login! </a>
             </form>
@@ -65,6 +65,6 @@ include('/home/nicole/Documents/IT490/RabbitMQClient.php');
             isValid = false;
         }
 
-        return isValid;
+        return isValid; 
     }
-</script>
+</script> 
