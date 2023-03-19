@@ -11,10 +11,9 @@ require_once('function.php');
 
 function requestProcessor($request)
 {
-  echo "received request" . PHP_EOL;
-  echo $request['type'] . PHP_EOL;
-  var_dump($request);
-
+  echo "received request\n";
+  echo $request['type'];
+  
   if (!isset($request['type'])) {
     //return "ERROR: unsupported message type";
     return array('message' => "ERROR: unsupported message type");
@@ -25,23 +24,24 @@ function requestProcessor($request)
     echo "\n*Type: Registration\n";
     $response_msg = doRegister($request['email'], $request['username'], $request['password']);
   } else {
-    $response_msg = "something else";
+    $response_msg = "register fail\n";
   }
-  return $response_msg;
+
 
   if ($request['type'] == "login") {
     echo "\n*Type: Login\n";
-    $response_msg = doLogin($request['email'], $request['username'], $request['password']);
+    $response_msg = doLogin($request['email'], $request['password']);
+
   } else {
-    $response_msg = "something else";
+    $response_msg = "login error, please try agin with vaild credentails";
   }
   return $response_msg;
 }
 
 $server = new rabbitMQServer("register.ini", "testServer");
 
-echo "dbServer BEGIN" . PHP_EOL;
+echo "dbServer BEGIN\n";
 $server->process_requests('requestProcessor');
-echo "dbServer END" . PHP_EOL;
+echo "dbServer END\n";
 exit();
 ?>

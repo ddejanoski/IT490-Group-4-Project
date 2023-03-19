@@ -3,6 +3,7 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 require_once('dbconnect.php');
+//require_once('rabbitMQclient_FE_response.php');
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -13,7 +14,7 @@ function doValidation($email, $username, $password)
   $emailPattern = '/^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/';
   $usernamePattern = '/^[a-z0-9-]{3,30}$/';
   echo "$email\n";
-  if (empty($email)){
+  if (empty($email)) {
     echo "Email must not be empty";
     $isValid = false;
   }
@@ -42,12 +43,14 @@ function doRegister($email, $username, $password)
 
   if (!doValidation($email, $username, $password)) {
     echo 'The credentials have not been validated.';
+    //unsuccessfulResponse();
   } else {
     $query = "SELECT * FROM Accounts WHERE username='$username'";
     $result = $con->query($query);
     if ($result->num_rows == 1) {
       // email/username have duplicate entries in database, echo message saying that
       echo 'Email/Username already taken.';
+      return false;
     } else {
       // this else statement occurs if user is not already in the database
       // password being hashed for extra layer of security
@@ -55,6 +58,8 @@ function doRegister($email, $username, $password)
       $insert = "INSERT IGNORE INTO Accounts (email, username, password) VALUES ('$email', '$username', '$hashed_password')";
       if ($con->query($insert)) {
         echo "New user successfully entered into database.";
+        return true;
+        //successfulResponse();
       } else {
         echo "Failed to insert new user. Connection error: ";
         $con->error;
@@ -65,13 +70,13 @@ function doRegister($email, $username, $password)
 }
 
 
-function doLogin($username, $password)
+function doLogin($email, $password)
 {
   $con = dbconnect();
 
-
-  $query = "SELECT * FROM Accounts WHERE username='$username'";
+  $query = "SELECT * FROM Accounts WHERE email='$email' ";
   $result = $con->query($query);
+
 
   if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
@@ -79,21 +84,23 @@ function doLogin($username, $password)
     // Verify the password
     if (password_verify($password, $user['password'])) {
       // Password is correct, return success message and user data
-      return array(
+      /*return array(
         'status' => 'success',
         'message' => 'Login successful',
         'user' => array(
           'id' => $user['id'],
-          'email' => $user['email'],
-          'username' => $user['username']
+          'email' => $user['email']
         )
-      );
+      );*/
+      return true;
     } else {
       // Password is incorrect, return error message
-      return array('status' => 'error', 'message' => 'Invalid username or password');
+      //return array('status' => 'error', 'message' => 'Invalid username or password');
+      return false;
     }
   } else {
     // Username not found, return error message
-    return array('status' => 'error', 'message' => 'Invalid username or password');
+    //return array('status' => 'error', 'message' => 'Invalid username or password');
+    return false;
   }
 }
