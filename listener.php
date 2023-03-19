@@ -23,7 +23,7 @@ function requestProcessor($request)
 
   if ($request['type'] == "register") {
     echo "\n*Type: Registration\n";
-    $response_msg = dochecking($request['email'], $request['username'], $request['password']);
+    $response_msg = doRegister($request['email'], $request['username'], $request['password']);
   } else {
     $response_msg = "something else";
   }
@@ -36,15 +36,12 @@ function requestProcessor($request)
     $response_msg = "something else";
   }
   return $response_msg;
-
-
-
 }
 
-$server = new rabbitMQServer("RabbitMQ_db.ini", "testServer");
+$server = new rabbitMQServer("register.ini", "testServer");
 
 echo "dbServer BEGIN" . PHP_EOL;
-$server->process_requests('requestProcessor1');
+$server->process_requests('requestProcessor');
 echo "dbServer END" . PHP_EOL;
 exit();
 ?>
