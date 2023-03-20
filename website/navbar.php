@@ -1,6 +1,5 @@
 
  <head>
-        <link rel="stylesheet" href="background_styles.css">
         <link rel="stylesheet" href="styles.css">
         <script src="script.js" defer></script>
 </head>
@@ -12,7 +11,17 @@
                 <li><a href="game.php">Game</a></li>
                 <li><a href="leaderboard.php">Leaderboard</a></li>
                 <li><a href="profile.php">Profile</a></li>
-                <li><a href="register.php">Register</a></li>
+
+                <li>
+                    <?php
+                    if(!isset($_SESSION['logged_in'])){ ?>
+                        <a href="register.php"> Register </a>
+                    <?php }
+                    else { ?>
+                        <a href="logout.php?logout=true"Logout </a>
+                    <?php } ?>
+                </li>
+    
             </ul>
         </div>
     </nav>

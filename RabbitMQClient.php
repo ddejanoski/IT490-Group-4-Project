@@ -42,6 +42,7 @@ if (isset($_GET['login'])) {
 		//echo "<strong>Registration Succesful</strong>";
 		//$_SESSION['username'] = $request['username'];
       	$_SESSION['success'] = "You are now logged in";
+		$_SESSION['logged_in'] = true;
 		$_SESSION['json'] = json_decode($response);
 		header('location: game.php');	
 	}
@@ -63,21 +64,11 @@ if(isset($_GET['register'])){
 	$request['message'] = $msg;
 
 	$response = $client->send_request($request);
-
-
-	//$response2 = giveResponse();
-	//file_put_contents('logRegister.txt', "Testing 1 2 3...");
-	//header('location: index.php');
-
-	//$toLog = print_r($response2, true);
-	//file_put_contents('logRegister.txt', $toLog);
 	
 	if ($response==1){
-		//echo "<strong>Registration Succesful</strong>";
 		$_SESSION['username'] = $request['username'];
-		//$_SESSION['firstname'] = $request['firstname'];
       	$_SESSION['success'] = "You are now logged in";
-		$_SESSION['json'] = json_decode($response);
+		//$_SESSION['json'] = json_decode($response);
 		header('location: game.php');	
 	}
 	else{ 
