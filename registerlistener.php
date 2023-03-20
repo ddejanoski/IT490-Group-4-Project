@@ -15,7 +15,6 @@ function requestProcessor($request)
   echo $request['type'];
   
   if (!isset($request['type'])) {
-    //return "ERROR: unsupported message type";
     return array('message' => "ERROR: unsupported message type");
   }
 
@@ -28,7 +27,7 @@ function requestProcessor($request)
   }
 
 
-  if ($request['type'] == "login") {
+  /*if ($request['type'] == "login") {
     echo "\n*Type: Login\n";
     $response_msg = doLogin($request['email'], $request['password']);
 
@@ -36,9 +35,11 @@ function requestProcessor($request)
     $response_msg = "login error, please try agin with vaild credentails";
   }
   return $response_msg;
+  */
 }
 
 $server = new rabbitMQServer("register.ini", "testServer");
+//$server = new rabbitMQServer("login.ini", "testServer");
 
 echo "dbServer BEGIN\n";
 $server->process_requests('requestProcessor');

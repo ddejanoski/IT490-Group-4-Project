@@ -3,7 +3,6 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 require_once('dbconnect.php');
-//require_once('rabbitMQclient_FE_response.php');
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -43,23 +42,20 @@ function doRegister($email, $username, $password)
 
   if (!doValidation($email, $username, $password)) {
     echo 'The credentials have not been validated.';
-    //unsuccessfulResponse();
   } else {
-    $query = "SELECT * FROM Accounts WHERE username='$username'";
+    $query = "SELECT * FROM accounts WHERE username='$username'";
     $result = $con->query($query);
     if ($result->num_rows == 1) {
-      // email/username have duplicate entries in database, echo message saying that
-      echo 'Email/Username already taken.';
+      // username have duplicate entries in database
+      echo 'Username already taken.';
       return false;
     } else {
-      // this else statement occurs if user is not already in the database
-      // password being hashed for extra layer of security
+      // password being hashed security purpose
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-      $insert = "INSERT IGNORE INTO Accounts (email, username, password) VALUES ('$email', '$username', '$hashed_password')";
+      $insert = "INSERT IGNORE INTO accounts (email, username, password) VALUES ('$email', '$username', '$hashed_password')";
       if ($con->query($insert)) {
         echo "New user successfully entered into database.";
         return true;
-        //successfulResponse();
       } else {
         echo "Failed to insert new user. Connection error: ";
         $con->error;
@@ -74,7 +70,7 @@ function doLogin($email, $password)
 {
   $con = dbconnect();
 
-  $query = "SELECT * FROM Accounts WHERE email='$email' ";
+  $query = "SELECT * FROM accounts WHERE email='$email' ";
   $result = $con->query($query);
 
 
