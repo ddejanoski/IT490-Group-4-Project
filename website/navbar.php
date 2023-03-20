@@ -18,7 +18,7 @@
                         <a href="register.php"> Register </a>
                     <?php }
                     else { ?>
-                        <a href="logout.php?logout=true"Logout </a>
+                        <a href="logout.php?logout=true">Logout </a>
                     <?php } ?>
                 </li>
     

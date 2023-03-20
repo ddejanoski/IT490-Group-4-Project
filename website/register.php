@@ -1,5 +1,5 @@
 <?php 
-include('/home/nicole/Documents/IT490/RabbitMQClient.php'); 
+include('/home/nicole/Documents/IT490/RabbitMQClientRegister.php'); 
 ?>
 
 <!DOCTYPE html>
