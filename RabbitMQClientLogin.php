@@ -38,18 +38,15 @@ if (isset($_GET['login'])) {
 		$_SESSION['json'] = json_decode($response);
 		header('location: game.php');
 	} */
-	if ($response==1){
-		//echo "<strong>Registration Succesful</strong>";
-		//$_SESSION['username'] = $request['username'];
-      	$_SESSION['success'] = "You are now logged in";
-		$_SESSION['logged_in'] = true;
-		$_SESSION['json'] = json_decode($response);
-		header('location: game.php');	
+	if ($response==0){
+		header('location: login.php');
 	}
 	else{ 
-		header('location: login.php');
-		//array_push($errors, "Credentials invalid"); 
-		
+		$_SESSION['success'] = "You are now logged in";
+		$_SESSION['email'] = $request['email'];
+		$_SESSION['logged_in'] = true;
+		$_SESSION['json'] = json_decode($response);
+		header('location: game.php');
 	}
 } 
 

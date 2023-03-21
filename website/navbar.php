@@ -14,7 +14,7 @@
 
                 <li>
                     <?php
-                    if(!isset($_SESSION['logged_in'])){ ?>
+                    if(session_status() === PHP_SESSION_ACTIVE){ ?>
                         <a href="register.php"> Register </a>
                     <?php }
                     else { ?>

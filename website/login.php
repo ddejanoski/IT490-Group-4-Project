@@ -19,7 +19,7 @@ include('/home/nicole/Documents/IT490/RabbitMQClientLogin.php');
                 <p>Password</p>
                 <input type="password" name="password" id="password" placeholder="Enter Password" required minlength="8" />
                 <input type="submit" name="login" value="login" id="login" />
-                <a href="login.php"> Don't have an account? Register! </a>
+                <a href="register.php"> Don't have an account? Register! </a>
             </form>
         </div>
     </body>

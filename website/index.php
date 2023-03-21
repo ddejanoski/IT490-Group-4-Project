@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require(__DIR__ . "/navbar.php");
-include '/home/nicole/Documents/IT490/RabbitMQClient.php';
+//include '/home/nicole/Documents/IT490/RabbitMQClient.php';
 ?>
 
 <html>

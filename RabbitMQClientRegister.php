@@ -27,16 +27,17 @@ if(isset($_GET['register'])){
 	$request['message'] = $msg;
 
 	$response = $client->send_request($request);
+
+	print_r($response);
 	
-	if ($response==1){
-		$_SESSION['username'] = $request['username'];
-      	$_SESSION['success'] = "You are now logged in";
-		//$_SESSION['json'] = json_decode($response);
-		header('location: game.php');	
+	if ($response==0){
+		header('location: register.php');
 	}
 	else{ 
-		//($errors, "User already exists"); 
-		header('location: register.php');
+		$_SESSION['email'] = $request['email'];
+      	$_SESSION['success'] = "You are now registered";
+		$_SESSION['json'] = json_decode($response);
+		header('location: game.php');	
 	}
 }
 
