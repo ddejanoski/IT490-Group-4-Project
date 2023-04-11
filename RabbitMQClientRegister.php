@@ -6,16 +6,6 @@ require_once('rabbitMQLib.inc');
 //require_once('receiveRegister.php');
 
 $client = new rabbitMQClient("registerRMQ.ini","testServer");
-//echo "ppdClient BEGIN".PHP_EOL;
-
-if (isset($argv[1]))
-{
-  $msg = $argv[1];
-}
-else
-{
-  $msg = "test message";
-}
 
 if(isset($_GET['register'])){
 	$request = array();
