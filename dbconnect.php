@@ -2,7 +2,7 @@
 function dbconnect()
 {
 	$host_name = '172.25.153.116';
-	$user_name = 'brian';
+	$user_name = 'backend';
 	$password = 'DBpasswordBACKEND123';
 	$database_name = 'test';
 	$message_connected = $user_name . ' has successfully connected to ' . $database_name;
