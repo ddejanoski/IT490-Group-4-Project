@@ -11,8 +11,8 @@ include('/home/nicole/Documents/IT490/RabbitMQClientGame.php');
     <p> Use the arrow keys to move your Professor </p>
     <p> Shoot the aliens with the spacebar and score as many points as possible </p>
 
-    <canvas id="canvas2" width="600" height="400" tabindex="1" style="position: absolute; left: 100; top: 100; z-index: 0;"> </canvas>
-    <canvas id="canvas" width="600" height="400" tabindex="1" style="position: absolute; left: 100; top: 100; z-index: 0;"> </canvas>
+    <canvas id="canvas2" width="600" height="400" tabindex="1" style="position: absolute; left: 250; top: 250; z-index: 0;"> </canvas>
+    <canvas id="canvas" width="600" height="400" tabindex="1" style="position: absolute; left: 250; top: 250; z-index: 0;"> </canvas>
     
     <div class="hidden">
       <script type="text/javascript">
