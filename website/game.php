@@ -1,5 +1,6 @@
 <?php
 require(__DIR__ . "/navbar.php");
+include('/home/nicole/Documents/IT490/RabbitMQClientGame.php'); 
 ?>
 
 <!DOCTYPE html>
@@ -10,16 +11,62 @@ require(__DIR__ . "/navbar.php");
     <p> Use the arrow keys to move your Professor </p>
     <p> Shoot the aliens with the spacebar and score as many points as possible </p>
 
-    <canvas id="canvas" width="600" height="400" tabindex="1"> </canvas>
+    <canvas id="canvas2" width="600" height="400" tabindex="1" style="position: absolute; left: 100; top: 100; z-index: 0;"> </canvas>
+    <canvas id="canvas" width="600" height="400" tabindex="1" style="position: absolute; left: 100; top: 100; z-index: 0;"> </canvas>
+    
+    <div class="hidden">
+      <script type="text/javascript">
+          if (document.images){
+            professor = new Image();
+            professor.src = "pictures/professor-v2.jpg";
+          }
+      </script>
+    </div>
+  </body>
 </html>
 
+<style>
+    #canvas {
+    width: 600px;
+    height: 400px;
+    border: 1px solid black;
+    background: transparent;
+    }
+
+    #canvas2 {
+      width: 600px;
+      height: 400px;
+      border: 1px solid black;
+      opacity: 0.5;
+    }
+
+</style>
+
 <script>
+
 // Arcade Shooter game
 
 // Get a reference to the canvas DOM element
 var canvas = document.getElementById('canvas');
 // Get the canvas drawing context
 var context = canvas.getContext('2d');
+context.clearRect(0, 0, 600, 400);
+
+
+
+
+var canvas2 = document.getElementById('canvas2');
+// Get the canvas drawing context
+var context2 = canvas2.getContext('2d');
+
+var background = new Image();
+background.src = "pictures/proisgamebg.jpg";
+background.onload = function(){
+  context2.drawImage(background, -150, 0, 800, 800 * background.height/background.width);
+}
+
+var pattern = context.createPattern(professor, 'no-repeat');
+
 
 // Create an object representing a square on the canvas
 function makeSquare(x, y, length, speed) {
@@ -30,6 +77,18 @@ function makeSquare(x, y, length, speed) {
     s: speed,
     draw: function() {
       context.fillRect(this.x, this.y, this.l, this.l);
+    }
+  };
+}
+
+function makeShip(x, y, length, speed) {
+  return {
+    x: x,
+    y: y,
+    l: length,
+    s: speed,
+    draw: function() {
+      context.drawImage(professor, this.x, this.y, this.l, this.l);
     }
   };
 }
@@ -47,8 +106,8 @@ function makeLevelSelectSquare(x, y, length, color) {
 }
 
 // The ship the user controls
-var ship = makeSquare(50, canvas.height / 2 - 25, 50, 4);
-var shipHard = makeSquare(50, canvas.height / 2 - 25, 50, 3);
+var ship = makeShip(50, canvas.height / 2 - 25, 50, 4);
+var shipHard = makeShip(50, canvas.height / 2 - 25, 50, 3);
 
 //level select squares
 var easySquare = makeLevelSelectSquare(canvas.width - 100, 65, 50, "#00FF00");
@@ -130,8 +189,9 @@ canvas.addEventListener('keyup', function(event) {
 
 // Clear the canvas
 function erase() {
-  context.fillStyle = '#FFFFFF';
-  context.fillRect(0, 0, 600, 400);
+  //context.fillStyle = '#FFFFFF';
+  context.clearRect(0, 0, 600, 400);
+  //context.fillRect(0, 0, 600, 400);
 }
 
 // Shoot the bullet (if not already on screen)
@@ -150,34 +210,45 @@ function shoot() {
 
 // Show the game menu and instructions
 function menu() {
-  erase();
-  console.log("Welcome to the menu");
-  context.fillStyle = '#000000';
-  context.font = '36px Arial';
-  context.textAlign = 'center';
-  context.fillText('Professor in Space', canvas.width / 2, canvas.height / 4);
-  context.font = '24px Arial';
-  context.fillText('Click to Start', canvas.width / 2, canvas.height / 2);
-  context.font = '18px Arial';
-  context.fillText('Up/Down to move, Space to shoot.', canvas.width / 2, (canvas.height / 4) * 3);
-  // Start the game on a click
-  canvas.addEventListener('click', levelSelect);
+    erase();
+    context.font = 'bold 36px Arial';
+    context.textAlign = 'center';
+    context.strokeStyle = 'black';
+    context.lineWidth = 8;
+    context.strokeText('Professor in Space', canvas.width / 2, canvas.height / 4);
+    context.fillStyle = 'white';
+    context.fillText('Professor in Space', canvas.width / 2, canvas.height / 4);
+
+    context.font = 'bold 24px Arial';
+    context.strokeText('Click to Start', canvas.width / 2, canvas.height / 2);
+    context.fillText('Click to Start', canvas.width / 2, canvas.height / 2);
+
+    context.font = 'bold 18px Arial';
+    context.strokeText('Up/Down to move, Space to shoot.', canvas.width / 2, (canvas.height / 4) * 3);
+    context.fillText('Up/Down to move, Space to shoot.', canvas.width / 2, (canvas.height / 4) * 3);
+    // Start the game on a click
+    canvas.addEventListener('click', levelSelect);
+
 }
 
 //select level
 function levelSelect() {
   var levelSelected = false;
-
-  console.log("Welcome to level select");
   erase();
-  context.fillStyle = "#000000";
-  context.font = '36px Arial';
+
+  context.font = 'bold 36px Arial';
   context.textAlign = 'center';
+  context.strokeStyle = 'black';
+  context.lineWidth = 8;
+  context.strokeText("Shoot your Difficulty", canvas.width / 2, canvas.height / 4);
+  context.fillStyle = 'white';
   context.fillText("Shoot your Difficulty", canvas.width / 2, canvas.height / 4);
 
-  context.font = '18px Arial';
+  context.font = 'bold 18px Arial';
   context.textAlign = 'center';
+  context.strokeText("Green for Easy, Black for Hard", canvas.width / 2, canvas.height / 3);
   context.fillText("Green for Easy, Black for Hard", canvas.width / 2, canvas.height / 3);
+
 
     // Move the ship
   if (down) {
@@ -194,7 +265,7 @@ function levelSelect() {
     ship.y = canvas.height - ship.l;
   }
   // Draw the ship
-  context.fillStyle = '#FF0000';
+  context.fillStyle = pattern;
   ship.draw();
   //console.log(ship.x + " "+ ship.y)
   easySquare.draw();
@@ -264,12 +335,16 @@ function endGame() {
   easyLevel = true;
   hardLevel = false;
 
-  context.fillStyle = '#000000';
-  context.font = '24px Arial';
+  context.font = 'bold 24px Arial';
   context.textAlign = 'center';
+  context.strokeStyle = 'black';
+  context.lineWidth = 8;
+  context.strokeText('Game Over. Click to Restart. Final Score: ' + score, canvas.width / 2, canvas.height / 2);
+  context.fillStyle = 'white';
   context.fillText('Game Over. Click to Restart. Final Score: ' + score, canvas.width / 2, canvas.height / 2);
+  
   canvas.addEventListener('click', levelSelect);
-  console.log("welcome to game over");
+
 }
 
 
@@ -278,7 +353,7 @@ function endGame() {
 function drawEasy() {
   erase();
   var gameOver = false;
-  console.log("Made it into the easy draw loop");
+  //console.log("Made it into the easy draw loop");
   //console.log(gameOver);
   // Move and draw the enemies
   enemies.forEach(function(enemy) {
@@ -345,10 +420,14 @@ function drawEasy() {
     bullet.draw();
   }
   // Draw the score
-  context.fillStyle = '#000000';
-  context.font = '24px Arial';
+  context.font = 'bold 24px Arial';
   context.textAlign = 'left';
+  context.strokeStyle = 'black';
+  context.lineWidth = 8;
+  context.strokeText('Score: ' + score, 1, 25)
+  context.fillStyle = 'white';
   context.fillText('Score: ' + score, 1, 25)
+
   // End or continue the game
   if (gameOver) {
     endGame();
@@ -361,7 +440,7 @@ function drawEasy() {
 function drawHard() {
   erase();
   var gameOver = false;
-  console.log("Made it into the draw loop");
+  //console.log("Made it into the draw loop");
   //console.log(gameOver);
   // Move and draw the enemies
   enemies.forEach(function(enemy) {
@@ -426,9 +505,12 @@ function drawHard() {
     bullet.draw();
   }
   // Draw the score
-  context.fillStyle = '#000000';
-  context.font = '24px Arial';
+  context.font = 'bold 24px Arial';
   context.textAlign = 'left';
+  context.strokeStyle = 'black';
+  context.lineWidth = 8;
+  context.strokeText('Score: ' + score, 1, 25)
+  context.fillStyle = 'white';
   context.fillText('Score: ' + score, 1, 25)
   // End or continue the game
   if (gameOver) {
@@ -442,6 +524,7 @@ function drawHard() {
 // Start the game
 menu();
 canvas.focus();
+
 
 
 </script>
