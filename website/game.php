@@ -1,13 +1,16 @@
 <?php
 require(__DIR__ . "/navbar.php");
-include('/home/nicole/Documents/IT490/RabbitMQClientGame.php'); 
+require('/home/nicole/Documents/IT490/RabbitMQClientGame.php'); 
 ?>
 
 <!DOCTYPE html>
 
 <html>
-    <h1> This is the Game Page </h1>
-    <p> Welcome <?php echo $_SESSION['email']; ?> </p>
+  <head>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+  </head>
+
+    <h1> Welcome <?php echo $_SESSION['email']; ?> </h1>
     <p> Use the arrow keys to move your Professor </p>
     <p> Shoot the aliens with the spacebar and score as many points as possible </p>
 
@@ -19,9 +22,16 @@ include('/home/nicole/Documents/IT490/RabbitMQClientGame.php');
           if (document.images){
             professor = new Image();
             professor.src = "pictures/professor-v2.jpg";
+            alien = new Image();
+            alien.src = "pictures/alien.jpg";
           }
       </script>
     </div>
+    
+    
+    <form id="scoreForm" onsubmit="return false">
+          <input type="hidden" id="score" name="score" value=0>
+    </form> 
   </body>
 </html>
 
@@ -43,6 +53,7 @@ include('/home/nicole/Documents/IT490/RabbitMQClientGame.php');
 </style>
 
 <script>
+
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 context.clearRect(0, 0, 600, 400);
@@ -64,6 +75,18 @@ function makeSquare(x, y, length, speed) {
     s: speed,
     draw: function() {
       context.fillRect(this.x, this.y, this.l, this.l);
+    }
+  };
+}
+
+function makeEnemySquare(x, y, length, speed) {
+  return {
+    x: x,
+    y: y,
+    l: length,
+    s: speed,
+    draw: function() {
+      context.drawImage(alien, this.x, this.y, this.l, this.l);
     }
   };
 }
@@ -92,8 +115,8 @@ function makeLevelSelectSquare(x, y, length, color) {
   }
 }
 
-var ship = makeShip(50, canvas.height / 2 - 25, 50, 4);
-var shipHard = makeShip(50, canvas.height / 2 - 25, 50, 3);
+var ship = makeShip(50, canvas.height / 2 - 25, 50, 7);
+var shipHard = makeShip(50, canvas.height / 2 - 25, 50, 5);
 
 var easySquare = makeLevelSelectSquare(canvas.width - 100, 65, 50, "#00FF00");
 var difficultSquare = makeLevelSelectSquare(canvas.width-100, 270, 50, "#000000");
@@ -111,12 +134,12 @@ var enemies = [];
 var easyLevel = true;
 var hardLevel = false;
 
-var enemyBaseSpeed = 2;
+var enemyBaseSpeed = 4;
 function makeEnemy() {
   var enemyX = canvas.width;
   var enemySize = Math.round((Math.random() * 15)) + 15;
   var enemyY = Math.round(Math.random() * (canvas.height - enemySize * 2)) + enemySize;
-  enemies.push(makeSquare(enemyX, enemyY, enemySize, enemyBaseSpeed));
+  enemies.push(makeEnemySquare(enemyX, enemyY, enemySize, enemyBaseSpeed));
 }
 
 function isWithin(a, b, c) {
@@ -264,6 +287,7 @@ function levelSelect() {
 function startGame(difficulty) {
   erase();
   score = 0;
+  document.getElementById('score').value=score;
 
   timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
   setTimeout(makeEnemy, 1000);
@@ -289,6 +313,15 @@ function endGame() {
   enemyBaseSpeed = 2;
   easyLevel = true;
   hardLevel = false;
+
+  $.ajax({
+    method: "POST",
+    url: "/game.php",
+    data: {"score": score}
+  })
+  .done(function(html){
+    console.log(score);
+  });
 
   context.font = 'bold 24px Arial';
   context.textAlign = 'center';

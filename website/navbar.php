@@ -1,11 +1,16 @@
+<?php session_start() ?>
 
- <head>
+<head>
         <link rel="stylesheet" href="styles.css">
         <script src="script.js" defer></script>
 </head>
 
     <nav class="navbar">
         <div class="brand-title">Professor In Space</div>
+        <a href="#" class="toggle-button">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
         <div class="navbar-links">
             <ul>
                 <li><a href="game.php">Game</a></li>
@@ -14,7 +19,7 @@
 
                 <li>
                     <?php
-                    if(session_status() === PHP_SESSION_ACTIVE){ ?>
+                    if($_SESSION['logged_in'] != true){ ?>
                         <a href="register.php"> Register </a>
                     <?php }
                     else { ?>

@@ -26,20 +26,9 @@ if (isset($_GET['login'])) {
 	
 	$response = $client->send_request($request);	
 
-	print_r($response);
-
-	/*
-	if (!$response){
-		array_push($errors, "Incorrect email or password");	
-	}
-	if ($response){  	
-		$_SESSION['username'] = $request['username'];
-      	$_SESSION['success'] = "Login Succesful!";  
-		$_SESSION['json'] = json_decode($response);
-		header('location: game.php');
-	} */
 	if ($response==0){
 		header('location: login.php');
+		echo '<script>alert("Login unsuccessful, try again")</script>';
 	}
 	else{ 
 		$_SESSION['success'] = "You are now logged in";

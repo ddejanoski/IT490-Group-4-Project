@@ -17,17 +17,19 @@ if(isset($_GET['register'])){
 	$request['message'] = $msg;
 
 	$response = $client->send_request($request);
-
-	print_r($response);
 	
 	if ($response==0){
+		echo '<script>alert("Registration unsuccessful, try again")</script>';
 		header('location: register.php');
+		
 	}
 	else{ 
+		echo '<script>alert("Registration successful")</script>';
 		$_SESSION['email'] = $request['email'];
       	$_SESSION['success'] = "You are now registered";
 		$_SESSION['json'] = json_decode($response);
-		header('location: game.php');	
+		header('location: login.php');	
+
 	}
 }
 

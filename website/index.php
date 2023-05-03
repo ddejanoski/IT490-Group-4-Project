@@ -12,8 +12,15 @@ require(__DIR__ . "/navbar.php");
     <body>
 	
     <h1> Professor in Space </h1>
-	<p> Are you ready to fight some aliens? </p?>
-	<p> Log in now to get started </p>
+
+	<p> Professors have it rough! </p?>
+    <p> Not only do they have to fight off students and administrators... </p>
+    <p> But now they're defending our planet! </p>
+    <p> Do you have what it takes to be a professor in space? </p>
+
+
+	<p> Log in now to get started </p> 
+    </br>
 	<a href="login.php" class="button"> Login </a>
 
     </body>
