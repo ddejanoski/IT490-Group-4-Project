@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS scores (
     id INT NOT NULL AUTO_INCREMENT,
-    user_id INT,
+    score_email VARCHAR(100) NOT NULL, 
     score INT DEFAULT 0,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES accounts(id),
+    FOREIGN KEY (score_email) REFERENCES accounts(email),
     check (score > 0)
 );
