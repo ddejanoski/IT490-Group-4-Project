@@ -33,32 +33,11 @@ $request['message']  = $msg;
 
 $response = array();
 	
-$client->publish($request);
+$response = $client->send_request($request);
 
-// Create a TCP/IP server socket
-$server_socket = stream_socket_server('tcp://172.25.217.136:1234');
+$response2 = json_decode($response);
 
-// Wait for an incoming connection
-$client_socket = stream_socket_accept($server_socket);
 
-// Read the serialized data from the socket
-$data = fread($client_socket, 1024);
 
-// Unserialize the data into an array
-$array = unserialize($data);
-
-// Process the array as needed
-print_r($array);
-
-// Close the client socket
-fclose($client_socket);
-
-// Close the server socket
-fclose($server_socket);
-
-$test = $array[0];
-
-echo "<script>alert($array[$test])</script>";
-
-//buildTable($response);
+buildTable($response2);
 ?>
