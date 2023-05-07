@@ -4,25 +4,8 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 function buildTable($array){
-    $html = 'table';
+    //meh
 
-    $html .= '<tr>';
-    foreach($array[0] as $key=>$value){
-        $html .= '<th>' . htmlspecialchars($key) . '</th>';
-    }
-
-    $html .= '</tr>';
-
-    foreach($array as $key=>$value){
-        $html .= '<tr>';
-        foreach($value as $key2=>$value2){
-            $html .= '<td>' . htmlspecialchars($value2) . '</td>';
-        }
-        $html .= '</tr>';
-    }
-
-    $html .= '</table>';
-    return $html;
 }
 
 $client = new rabbitMQClient("scoreRMQ.ini","testServer");
@@ -30,14 +13,22 @@ $client = new rabbitMQClient("scoreRMQ.ini","testServer");
 $request = array();
 $request['type'] = "leaderboard";
 $request['message']  = $msg;
-
-$response = array();
 	
 $response = $client->send_request($request);
 
-$response2 = json_decode($response);
+$encoded_response = $response['message'];
+$decoded_response = base64_decode($encoded_response);
+$unserialized_response = unserialize($decoded_response);
 
 
-
-buildTable($response2);
+//buildTable($unserialized_response);
+echo '<table>';
+echo '<tr><th>Username</th><th>Score</th></tr>';
+foreach ($unserialized_response as $row) {
+    echo "<tr>\n";
+    echo "<td>" . $row['username'] . "</td>\n";
+    echo "<td>" . $row['score'] . "</td>\n";
+    echo "</tr>\n";
+}
+echo '</table>';
 ?>
