@@ -305,6 +305,7 @@ function startGame(difficulty) {
 }
 
 function endGame() {
+  shooting = false;
   clearInterval(timeoutId);
   erase();
   while(enemies.length > 0){
@@ -314,10 +315,13 @@ function endGame() {
   easyLevel = true;
   hardLevel = false;
 
+  var scoreToSend = JSON.stringify(score);
+
   $.ajax({
-    method: "POST",
-    url: "/game.php",
-    data: {"score": score}
+    method: 'POST',
+    url: '/game.php',
+    data: {'score': scoreToSend},
+    contentType: "application/json"
   })
   .done(function(html){
     console.log(score);

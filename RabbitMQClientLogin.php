@@ -27,7 +27,7 @@ if (isset($_GET['login'])) {
 	$response = $client->send_request($request);	
 
 	if ($response==0){
-		header('location: login.php');
+		//header('location: login.php');
 		echo '<script>alert("Login unsuccessful, try again")</script>';
 	}
 	else{ 

@@ -10,7 +10,8 @@ if (isset($_GET['changepwd'])) {
 	$request = array();
 	$request['type'] = "changepassword";
 	$request['email'] = $_SESSION["email"];
-	$request['password'] = $_GET["newpassword"];
+	$request['password'] = $_GET["oldpassword"];
+	$request['newpassword'] = $_GET["newpassword"];
 	$request['message']  = $msg;
 	
 	$response = $client->send_request($request);	

@@ -21,7 +21,7 @@ include('/home/nicole/Documents/IT490/RabbitMQClientPassword.php');
                 <input type="password" name="newpassword" id="newpassword" placeholder="Enter New Password" required minlength="8" />
                 <p>Confirm New Password</p>
                 <input type="password" name="confirm" placeholder="Confirm password" required minlength="8"/>
-                <input type="submit" name="changepassword" value="Submit" id="changepassword" />
+                <input type="submit" name="changepwd" value="Submit" id="changepwd" />
             </form>
         </div>
     </body>

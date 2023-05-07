@@ -12,7 +12,7 @@ $channel->queue_declare('hello', false, false, false, false);
 $msg = new AMQPMessage('Hello World! - Apache :)');
 $channel->basic_publish($msg, '', 'hello');
 
-echo " [x] Sent 'Hello World! - Apache :)'\n";
+echo " [x] Sent 'Hello World! - nikki :)'\n";
 
 $channel->close();
 $connection->close();
