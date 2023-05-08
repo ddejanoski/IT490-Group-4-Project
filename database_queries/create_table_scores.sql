@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS scores (
     PRIMARY KEY (id),
     FOREIGN KEY (score_email) REFERENCES accounts(email),
     check (score > 0)
-);
+)ENGINE=ndbcluster;

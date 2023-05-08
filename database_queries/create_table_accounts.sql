@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS accounts (
     modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_online BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    UNIQUE (email, username)
-);
+    UNIQUE (email, username),
+)ENGINE=ndbcluster;
