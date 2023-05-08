@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the server you want to connect to
-SERVER="brian@172.25.217.136"
+SERVER="backend@172.25.217.136"
 
 # Set the service you want to check and start
 SERVICE="php8.1-fpm"
